@@ -1,4 +1,4 @@
-# test-task-by-sibirs
+# test-task-by-sibers
 
 ## Project setup
 ```
