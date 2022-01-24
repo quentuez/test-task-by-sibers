@@ -1,12 +1,30 @@
 <template>
-  <h1>User list</h1>
-  <input type="search" v-model="search" placeholder="Search user.." />
-  <div v-for="user in filteredList" :key="user.id">
-    <ul>
-      <li>{{ user.name }}</li>
-      <li>{{ user.phone }}</li>
+  <div class="mainTitle">
+    <h1 class="h1 mainTitle__h1">User list</h1>
+  </div>
+
+  <div class="searchForm">
+    <input
+      class="input searchForm__input"
+      type="search"
+      v-model="search"
+      placeholder="Search user.."
+    />
+  </div>
+
+  <div class="listOfUsers" v-for="user in filteredList" :key="user.id">
+    <ul class="ul listOfUsers__ul">
+      <li class="li ListOfUsers__li">{{ user.name }}</li>
+      <li class="li ListOfUsers__li">Number: {{ user.phone }}</li>
     </ul>
-    <input type="image" :src="image" alt="Submit" width="64" height="64" />
+    <input
+      class="input ListOfUsers__input"
+      type="image"
+      :src="image"
+      alt="Submit"
+      width="64"
+      height="64"
+    />
   </div>
 </template>
 
@@ -15,6 +33,7 @@ export default {
   name: "ContactList",
   data() {
     return {
+      // Contact icon created by Creatype - https://www.flaticon.com/premium-icon/writing_3178451
       image: require("@/assets/UserList/EditIcon.png"),
       search: "",
       userList: [],
@@ -60,4 +79,40 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.mainTitle {
+  background-color: #e48e66;
+}
+
+.h1 {
+  text-align: center;
+}
+
+.input[type="search"] {
+  background-color: #f5f5f6;
+}
+
+.listOfUsers {
+  background: {
+    color: #f5f5f6;
+  }
+}
+
+.ul {
+  list-style-type: none;
+}
+
+.listOfUsers__ul {
+  margin: 25px;
+}
+
+.input[type="image"] {
+  transition: 0.25s;
+  &:hover {
+    transition: 0.25s;
+    // Filter generated from https://codepen.io/sosuke/pen/Pjoqqp
+    filter: invert(63%) sepia(91%) saturate(404%) hue-rotate(322deg)
+      brightness(95%) contrast(87%);
+  }
+}
+</style>
