@@ -1,10 +1,10 @@
 <template>
-  <h1>Edit user</h1>
+  <h1>About app</h1>
 </template>
 
 <script>
 export default {
-  name: "EditUser",
+  name: "AboutApp",
 };
 </script>
 
