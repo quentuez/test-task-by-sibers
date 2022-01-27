@@ -9,16 +9,16 @@
         class="input searchForm__input"
         type="search"
         v-model="search"
-        placeholder="Search user.."
+        placeholder="Search by user name.."
       />
     </div>
 
     <div
       class="listOfUsers wrap__listOfUsers"
-      v-for="user in filteredList"
+      v-for="user in filteredUserList"
       :key="user.id"
     >
-      <ul id="content" class="ul listOfUsers__ul">
+      <ul class="ul listOfUsers__ul" id="content">
         <li class="li ListOfUsers__li">
           <p>
             <span v-html="user.name" contenteditable="false"></span>
@@ -39,10 +39,10 @@
       </ul>
       <input
         class="input ListOfUsers__input"
-        v-on:click="makeEditable"
         type="image"
+        v-on:click="makeEditable"
         :src="image"
-        alt="Submit"
+        alt="Edit"
         width="32"
         height="32"
       />
@@ -55,17 +55,20 @@
 <script>
 export default {
   name: "ContactList",
+
   components: {},
+
   data() {
     return {
       // Contact icon created by Creatype - https://www.flaticon.com/premium-icon/writing_3178451
       image: require("@/assets/UserList/EditIcon.png"),
       search: "",
       userList: [],
-      // <!-- User list taken from Sibers - https://sibers.ru -->
+      // User list taken from Sibers - https://sibers.ru
       usersUrl: "https://demo.sibers.com/users",
     };
   },
+
   async mounted() {
     let storedUsers = localStorage.getItem("storedUsers");
 
@@ -75,7 +78,7 @@ export default {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error("Something went wrong");
+            throw new Error("Something went wrong..");
           }
         })
 
@@ -92,15 +95,13 @@ export default {
 
   computed: {
     // [WIP] How to search through multiple parameters (name, phone)?
-    filteredList() {
+    filteredUserList() {
       return this.userList.filter((user) => {
-        return (
-          user.name.toLowerCase().includes(this.search.toLowerCase()) ||
-          user.phone.toLowerCase().includes(this.search.toLowerCase())
-        );
+        return user.name.toLowerCase().includes(this.search.toLowerCase());
       });
     },
   },
+
   methods: {
     makeEditable: function () {
       let spans = document.getElementsByTagName("span");
@@ -108,6 +109,7 @@ export default {
         span.setAttribute("contenteditable", true);
       }
     },
+
     // [WIP] All objects from "storedUsers" are overwritten,
     // but changes should only be made to editable strings.
     saveLocalStorage: function () {
@@ -133,26 +135,22 @@ export default {
 }
 
 .mainTitle__h1 {
+  height: 125px;
   width: 400px;
-
   // Small devices (mobiles, 576px and up)
   @media (min-width: 576px) {
     width: 500px;
   }
-
   // Medium devices (tablets, 768px and up)
   @media (min-width: 768px) {
     width: 600px;
   }
-
   // Large devices (desktops, 992px and up)
   @media (min-width: 992px) {
     width: 800px;
   }
-
   // Extra large devices (large desktops, 1200px and up)
   @media (min-width: 1200px) {
-    height: 125px;
     width: 1000px;
   }
 }
@@ -167,31 +165,27 @@ export default {
   }
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: 0.3s;
-  &:focus {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  }
   font: {
     family: "Roboto", sans-serif;
     size: 18px;
     weight: 500;
   }
   outline: none;
-
+  &:focus {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
   // Small devices (mobiles, 576px and up)
   @media (min-width: 576px) {
     font-size: 21px;
   }
-
   // Medium devices (tablets, 768px and up)
   @media (min-width: 768px) {
     font-size: 24px;
   }
-
   // Large devices (desktops, 992px and up)
   @media (min-width: 992px) {
     font-size: 27px;
   }
-
   // Extra large devices (large desktops, 1200px and up)
   @media (min-width: 1200px) {
     font-size: 30px;
@@ -202,22 +196,18 @@ export default {
   height: 34px;
   margin-top: 25px;
   width: 100%;
-
   // Small devices (mobiles, 576px and up)
   @media (min-width: 576px) {
     height: 36px;
   }
-
   // Medium devices (tablets, 768px and up)
   @media (min-width: 768px) {
     height: 38px;
   }
-
   // Large devices (desktops, 992px and up)
   @media (min-width: 992px) {
     height: 40px;
   }
-
   // Extra large devices (large desktops, 1200px and up)
   @media (min-width: 1200px) {
     height: 42px;
@@ -225,9 +215,6 @@ export default {
 }
 
 .listOfUsers {
-  &:hover {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  }
   background: {
     color: #f5f5f6;
   }
@@ -236,31 +223,30 @@ export default {
   }
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: 0.3s;
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
 }
 
 .wrap__listOfUsers {
   height: 85px;
   position: relative;
   width: 400px;
-
   // Small devices (mobiles, 576px and up)
   @media (min-width: 576px) {
     height: 95px;
     width: 500px;
   }
-
   // Medium devices (tablets, 768px and up)
   @media (min-width: 768px) {
     height: 105px;
     width: 600px;
   }
-
   // Large devices (desktops, 992px and up)
   @media (min-width: 992px) {
     height: 115px;
     width: 800px;
   }
-
   // Extra large devices (large desktops, 1200px and up)
   @media (min-width: 1200px) {
     height: 125px;
@@ -278,18 +264,18 @@ export default {
 }
 
 .input[type="image"] {
+  transition: 0.3s;
   &:hover {
     // Filter generated from https://codepen.io/sosuke/pen/Pjoqqp
     filter: invert(63%) sepia(91%) saturate(404%) hue-rotate(322deg)
       brightness(95%) contrast(87%);
   }
-  transition: 0.3s;
 }
 
 .ListOfUsers__input {
   position: absolute;
-  top: 15px;
   right: 15px;
+  top: 15px;
 }
 
 .button {
@@ -300,14 +286,13 @@ export default {
   border: {
     radius: 5px;
   }
-
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: 0.3s;
 }
 
 .ListOfUsers__button {
-  position: absolute;
   bottom: 15px;
+  position: absolute;
   right: 15px;
 }
 </style>
